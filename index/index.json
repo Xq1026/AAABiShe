@@ -1,8 +1,8 @@
 {
   "navigationBarBackgroundColor": "#174ADD",
   "navigationBarTextStyle": "white",
-  "navigationBarTitleText": "回复评论",
+  "navigationBarTitleText": "首页",
   "usingComponents": {
-    "xia-editor": "/components/xia-editor/xia-editor"
+    "uni-icons": "/components/uni-ui/lib/uni-icons/uni-icons"
   }
 }

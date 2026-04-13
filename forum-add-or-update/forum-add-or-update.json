@@ -1,7 +1,7 @@
 {
   "navigationBarBackgroundColor": "#174ADD",
   "navigationBarTextStyle": "white",
-  "navigationBarTitleText": "回复评论",
+  "navigationBarTitleText": "我的发布",
   "usingComponents": {
     "xia-editor": "/components/xia-editor/xia-editor"
   }
