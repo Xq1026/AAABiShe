@@ -1,0 +1,8 @@
+{
+  "navigationBarBackgroundColor": "#174ADD",
+  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "超时赔付",
+  "usingComponents": {
+    "mescroll-uni": "/components/mescroll-uni/mescroll-uni"
+  }
+}
