@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ZhifuyajinDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.entity.ZhifuyajinEntity" id="zhifuyajinMap">
+        <result property="tushubianhao" column="tushubianhao"/>
+        <result property="tushumingcheng" column="tushumingcheng"/>
+        <result property="tushuleixing" column="tushuleixing"/>
+        <result property="tushufengmian" column="tushufengmian"/>
+        <result property="tushuzuozhe" column="tushuzuozhe"/>
+        <result property="zuozheguoji" column="zuozheguoji"/>
+        <result property="tushuyuyan" column="tushuyuyan"/>
+        <result property="kejietianshu" column="kejietianshu"/>
+        <result property="tushuyajin" column="tushuyajin"/>
+        <result property="zhifushijian" column="zhifushijian"/>
+        <result property="yonghuzhanghao" column="yonghuzhanghao"/>
+        <result property="yonghuxingming" column="yonghuxingming"/>
+        <result property="shenqingrenzhanghao" column="shenqingrenzhanghao"/>
+        <result property="shenqingrenxingming" column="shenqingrenxingming"/>
+        <result property="ispay" column="ispay"/>
+    </resultMap>
+
+	<select id="selectListVO"
+		resultType="com.entity.vo.ZhifuyajinVO" >
+		SELECT * FROM zhifuyajin  zhifuyajin         
+        <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectVO"
+		resultType="com.entity.vo.ZhifuyajinVO" >
+		SELECT  zhifuyajin.* FROM zhifuyajin  zhifuyajin 	
+ 		<where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+
+    <select id="selectListView"
+		resultType="com.entity.view.ZhifuyajinView" >
+
+		SELECT  zhifuyajin.* FROM zhifuyajin  zhifuyajin 	        
+        <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectView"
+		resultType="com.entity.view.ZhifuyajinView" >
+		SELECT * FROM zhifuyajin  zhifuyajin <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+
+
+</mapper>
