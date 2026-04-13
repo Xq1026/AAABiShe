@@ -11,7 +11,7 @@ export function isEmail(s) {
  * @param {*} s
  */
 export function isMobile(s) {
-	return /^1[23456789]\d{9}$/.test(s)
+	return /^1[3456789]\d{9}$/.test(s)
 }
 
 /**
@@ -55,24 +55,21 @@ export function checkIdCard(idcard) {
 		return true;
 	}
 }
-/**
- * 匹配中文，可以为空
- * @param {*} s 
- */
+
 export function isChinese(s) {
 	return /^[\u4e00-\u9fa5]+$/.test(s);
 }
-/**
- * 匹配英文，可以为空
- * @param {*} s 
- */
+
 export function isEnglish(s) {
 	return /^[A-Za-z]+$/.test(s);
 }
-/**
- * 匹配英文和数字，可以为空
- * @param {*} s 
- */
+
 export function isEnglishNumber(s) {
-	return /^[A-Za-z0-9]+$/.test(s)&&/^(?=.*\d)(?=.*[a-zA-Z]).+$/.test(s);
+	let reg = /^[A-Za-z0-9]+$/;
+	let reg2 = /^(?=.*\d)(?=.*[a-zA-Z]).+$/;
+	if (!reg.test(s)||!reg2.test(s)) {
+		return false;
+	} else {
+		return true;
+	}
 }

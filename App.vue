@@ -1,43 +1,50 @@
-<template>
-	<div id="app" class="">
-		<router-view></router-view>
-	</div>
-</template>
-
 <script>
+	let remindTimer = null
 	export default {
-		name: 'app',
-		data() {
-			return{
-			}
+		onLaunch: function() {
+			console.log('App Launch')
 		},
-		created() {
-			
+		onShow: function() {
+			console.log('App Show')
+		},
+		onHide: function() {
+			console.log('App Hide')
+			clearTimeout(remindTimer)
 		},
 	}
 </script>
 
-<style>
-
+<style lang="scss">
+	@import "/colorui/main.css";
+	@import "/colorui/icon.css";
+	/*每个页面公共css */
+ 	@import "/assets/css/style.scss";
+	@import "/assets/css/quill.css";
+	/* #ifndef MP-WEIXIN */
+	@import url("https://at.alicdn.com/t/c/font_4097802_w9071sf3dx.css");
+	/* #endif*/
+	/* #ifdef MP-WEIXIN */
+	@import "/colorui/font/iconfont.css";
+	/* #endif */
+	
 	* {
-		padding: 0;
-		margin: 0;
 		box-sizing: border-box;
 	}
-
-	html,
-	body {
+	button::after{
+		border: none;
+	}
+	view, form, scroll-view, swiper, button, input, textarea, label, navigator, image {
+	    box-sizing: border-box;
+	}
+	
+	.uni-product-list {
+		display: flex;
 		width: 100%;
-		height: 100%;
+		flex-wrap: wrap;
+		flex-direction: row;
+		margin-top: 60px;
 	}
-
-	#app {
-		height: 100%;
-	}
-
-	body {
-		padding: 0;
-		margin: 0;
-
+	.uni-tabbar .uni-tabbar__label {
+		font-size: 30rpx !important;
 	}
 </style>

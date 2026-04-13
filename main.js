@@ -1,64 +1,56 @@
 import Vue from 'vue'
-import App from '@/App.vue'
-import store from './store'
-// element ui 完全引入
-import ElementUI from 'element-ui'
-import '@/assets/css/element-variables.scss'
-import '@/assets/css/style.scss'
-// 加载路由
-// import router from '@/router/router-static.js';
-import router from '@/router/router-static.js';
-// 面包屑导航，注册为全局组件
-import BreadCrumbs from '@/components/common/BreadCrumbs'
-Vue.component('bread-crumbs', BreadCrumbs)
-// 引入echart
-import * as echarts from 'echarts'
-import 'echarts-wordcloud'
-// 引入echart主题
-// import  '@/assets/js/echarts-theme-macarons.js'
-import 'echarts/theme/macarons.js'
-// ajax
-import http from '@/utils/http.js'
-// 基础配置
-import base from '@/utils/base'
+import App from './App'
+import utils from './utils/utils.js'
+import config from './utils/config.js'
+import api from './api/index.js'
+import base from './api/base.js'
+import { encryptDes,decryptDes,encryptAes,decryptAes } from '@/utils/des'
+import * as validate from 'utils/validate.js'
 // 工具类
-import { 
-	isAuth,
-	getCurDate,
-	getCurDateTime,
-} from '@/utils/utils'
-// storage 封装
-import storage from "@/utils/storage";
-// 上传组件
-import FileUpload from "@/components/common/FileUpload";
-Vue.component('file-upload', FileUpload)
+import { isAuth } from '@/utils/system'
+import { isAuthFront } from '@/utils/system'
+// 弹出层
+import uniPopup from "./components/uni-popup/uni-popup.vue"
+// 上拉,下拉组件
+import MescrollUni from "./components/mescroll-uni/mescroll-uni.vue";
+// 上拉,下拉组件
+import uniLoadMore from "./components/uni-load-more/uni-load-more.vue"
+import {VueJsonp} from './components/vue-jsonp'
+//轮播
+import zSwiperItem from "./components/zebra-swiper/components/z-swiper-item/z-swiper-item.vue";
+import zSwiper from "./components/zebra-swiper/components/z-swiper/z-swiper.vue";
 
-// 富文本编辑组件
-import Editor from "@/components/common/Editor";
-Vue.component('editor', Editor)
-// api 接口
-import api from '@/utils/api'
-// 数据校验工具类
-import * as validate from '@/utils/validate.js'
-Vue.prototype.$getBgName = base.getBgName()
-Vue.prototype.$getUsersName = base.getUsersName()
-Vue.prototype.$validate = validate
-Vue.prototype.$http = http // ajax请求方法
-Vue.prototype.$echarts = echarts
-Vue.prototype.$base = base.get()
-Vue.prototype.$project = base.getProjectName()
-Vue.prototype.$storage = storage
+import musicPlay from "./components/musicPlay/musicPlay";
+
+import 'animate.css'
+
+Vue.use(VueJsonp)
+Vue.prototype.$utils = utils
+Vue.prototype.$config = config
+Vue.prototype.$base = base
 Vue.prototype.$api = api
+Vue.prototype.$validate = validate
 // 判断权限方法
 Vue.prototype.isAuth = isAuth
-Vue.prototype.getCurDateTime = getCurDateTime
-Vue.prototype.getCurDate = getCurDate
-// Vue.prototype.$base = base
-Vue.use(ElementUI, { size: 'medium', zIndex: 3000 });
-Vue.config.productionTip = false
+Vue.prototype.isAuthFront = isAuthFront
+Vue.prototype.encryptDes = encryptDes
+Vue.prototype.decryptDes = decryptDes
+Vue.prototype.encryptAes = encryptAes
+Vue.prototype.decryptAes = decryptAes
 
-new Vue({
-  render: h => h(App),
-  router,
-  store
-}).$mount('#app')
+
+Vue.component('uniLoadMore', MescrollUni)
+Vue.component('mescroll-uni', MescrollUni)
+Vue.component('uni-popup',uniPopup)
+//轮播
+Vue.component('z-swiper-item',zSwiperItem)
+Vue.component('z-swiper',zSwiper)
+
+Vue.component('musicPlay', musicPlay)
+
+Vue.config.productionTip = false
+App.mpType = 'app'
+const app = new Vue({
+	...App
+})
+app.$mount()
