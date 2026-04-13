@@ -1,0 +1,8 @@
+{
+  "navigationBarBackgroundColor": "#174ADD",
+  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "图书归还",
+  "usingComponents": {
+    "mescroll-uni": "/components/mescroll-uni/mescroll-uni"
+  }
+}
