@@ -1,10 +1,650 @@
-(global["webpackJsonp"]=global["webpackJsonp"]||[]).push([["components/w-picker/w-picker"],{"273c":function(a,t,e){"use strict";var r=e("b5fd"),n=e.n(r);n.a},a9f5:function(a,t,e){"use strict";(function(a){Object.defineProperty(t,"__esModule",{value:!0}),t.default=void 0;var r=d(e("dac4")),n=d(e("a46d")),s=d(e("aa5d")),l=d(e("29bc"));function d(a){return a&&a.__esModule?a:{default:a}}function i(a){return o(a)||h(a)||c(a)||u()}function u(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}function c(a,t){if(a){if("string"===typeof a)return f(a,t);var e=Object.prototype.toString.call(a).slice(8,-1);return"Object"===e&&a.constructor&&(e=a.constructor.name),"Map"===e||"Set"===e?Array.from(a):"Arguments"===e||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(e)?f(a,t):void 0}}function h(a){if("undefined"!==typeof Symbol&&null!=a[Symbol.iterator]||null!=a["@@iterator"])return Array.from(a)}function o(a){if(Array.isArray(a))return f(a)}function f(a,t){(null==t||t>a.length)&&(t=a.length);for(var e=0,r=new Array(t);e<t;e++)r[e]=a[e];return r}function m(a,t){for(var e=0;e<t.length;e++)if(a===t[e])return!0;throw new Error("mode无效，请选择有效的mode!")}t.default={data:function(){return{result:[],data:{},checkArr:[],checkValue:[],pickVal:[],showPicker:!1,resultStr:"",itemHeight:"height: ".concat(a.upx2px(88),"px;"),confirmFlag:!0}},computed:{},props:{mode:{type:String,validator:function(a){var t=["half","date","dateTime","yearMonth","time","region","selector","limit","limitHour","range","linkage"];return m(a,t)},default:function(){return"date"}},themeColor:{type:String,default:function(){return"#f5a200"}},startYear:{type:[String,Number],default:function(){return"1970"}},endYear:{type:[String,Number],default:function(){return(new Date).getFullYear()+50+""}},starttime:{type:String,default:""},endtime:{type:String,default:""},defaultVal:{type:[Array,String],default:""},areaCode:{type:Array,default:function(){return null}},hideArea:{type:Boolean,default:!1},step:{type:[String,Number],default:1},current:{type:Boolean,default:!1},selectList:{type:Array,default:function(){return[]}},dayStep:{type:[String,Number],default:7},startHour:{type:[String,Number],default:8},endHour:{type:[String,Number],default:20},minuteStep:{type:[String,Number],default:10},afterStep:{type:[String,Number],default:30},disabledAfter:{type:Boolean,default:!1},linkList:{type:Array,default:function(){return[]}},value:{type:Array,default:function(){return null}},level:{type:[Number,String],default:2},timeout:{type:Boolean,default:!1}},watch:{mode:function(){this.initData()},selectList:function(){this.initData()},linkList:function(){this.initData()},defaultVal:function(a){this.initData(),console.log(a)},areaCode:function(){this.initData()},value:function(){this.initData()}},methods:{touchStart:function(){this.timeout&&(this.confirmFlag=!1)},touchEnd:function(){var a=this;this.timeout&&setTimeout((function(){a.confirmFlag=!0}),500)},getLinkageVal:function(a,t){var e=[],r=this.linkList,n=this.level,s=a,l=0,d=[],i=[],u="",c=[];switch(n){case 2:e=[0,0];break;case 3:e=[0,0,0];break}var h=function a(r,l,h){if(l<n){if(c.push(r),s)r.map((function(r,n){(t?r.value==s[l]:r.label==s[l])&&(e[l]=n,d.push(r.label),i.push(r.value),u+=r.label,r.children&&a(r.children,l+=1))}));else{var o=r[0];d.push(o.label),i.push(o.value),u+=o.label,o.children&&a(o.children,l+=1)}return{data:c,dval:e,checkArr:d,checkValue:i,resultStr:u}}return!1};return h(r,l)},getRegionVal:function(a,t){var e=a[0],l=a[1],d=0,i=0,u=0,c=[],h=this;if(r.default.map((function(a,r){(t?a.value==e:a.label==e)&&(d=r)})),n.default[d].map((function(a,e){(t?a.value==l:a.label==l)&&(i=e)})),h.hideArea)c=[d,i];else{var o=a[2];s.default[d][i].map((function(a,e){(t?a.value==o:a.label==o)&&(u=e)})),c=[d,i,u]}return c},useCurrent:function(){var a=new Date,t=a.getFullYear().toString(),e=this.formatNum(a.getMonth()+1).toString(),r=this.formatNum(a.getDate()).toString(),n=this.formatNum(a.getHours()).toString(),s=this.formatNum(a.getMinutes()).toString(),l=this.formatNum(a.getSeconds()).toString();if(!this.current&&this.defaultVal)return this.defaultVal;switch(this.mode){case"range":return[t+"-"+e+"-"+r,t+"-"+e+"-"+r];case"date":if(this.starttime){var d=t+"-"+e+"-"+r,i=this.starttime;new Date(d).getTime()<new Date(i).getTime()&&(r=Number(r)-1)}if(this.endtime){var u=t+"-"+e+"-"+r,c=this.endtime;new Date(u).getTime()>new Date(c).getTime()&&(r=Number(r)-1)}return t+"-"+e+"-"+r;case"yearMonth":return t+"-"+e;case"time":return n+":"+(Math.floor(s/this.step)*this.step).toString()+":"+l;default:if(this.starttime){var h=t+"-"+e+"-"+r,o=this.starttime;new Date(h).getTime()<new Date(o).getTime()&&(r=Number(r)-1)}if(this.endtime){var f=t+"-"+e+"-"+r,m=this.endtime;new Date(f).getTime()>new Date(m).getTime()&&(r=Number(r)-1)}return t+"-"+e+"-"+r+" "+n+":"+(Math.floor(s/this.step)*this.step).toString()+":"+l}},formatNum:function(a){return a<10?"0"+a:a+""},maskTap:function(){this.$emit("cancel",{checkArr:this.checkArr,defaultVal:this.pickVal}),this.showPicker=!1},show:function(){this.showPicker=!0},hide:function(){this.showPicker=!1},pickerCancel:function(){this.$emit("cancel",{checkArr:this.checkArr,defaultVal:this.pickVal}),this.showPicker=!1},pickerConfirm:function(t){if(this.confirmFlag){switch(this.mode){case"range":var e=this.checkArr,r=new Date(e[0],e[1],e[2]),n=new Date(e[3],e[4],e[5]),s=this.pickVal;r>n?(this.checkArr=[e[3],e[4],e[5],e[0],e[1],e[2]],this.pickVal=[s[4],s[5],s[6],0,s[0],s[1],s[2]],this.$emit("confirm",{checkArr:i(this.checkArr),from:e[3]+"-"+e[4]+"-"+e[5],to:e[0]+"-"+e[1]+"-"+e[2],defaultVal:i(this.pickVal),result:this.resultStr})):this.$emit("confirm",{checkArr:i(this.checkArr),from:e[0]+"-"+e[1]+"-"+e[2],to:e[3]+"-"+e[4]+"-"+e[5],defaultVal:i(this.pickVal),result:this.resultStr});break;case"limit":var l=(new Date).getTime(),d=new Date(this.resultStr.replace(/-/g,"/")).getTime();if(l>d)return void a.showModal({title:"提示",content:"选择时间必须大于当前时间",confirmColor:this.themeColor});this.$emit("confirm",{checkArr:i(this.checkArr),defaultVal:i(this.pickVal),result:this.resultStr});break;case"region":case"linkage":this.$emit("confirm",{checkArr:i(this.checkArr),checkValue:i(this.checkValue),defaultVal:i(this.pickVal),result:this.resultStr});break;case"selector":this.$emit("confirm",{checkArr:this.checkArr,defaultVal:i(this.pickVal),result:this.resultStr});break;default:this.$emit("confirm",{checkArr:[this.checkArr],defaultVal:i(this.pickVal),result:this.resultStr});break}this.showPicker=!1}},bindChange:function(a){var t,e,r,d,i,u,c,h,o,f=this,m=a.detail.value,g="",y="",b="",k="",v="",p="",A=f.checkArr,S=[],V=[],D=[],w=[],N=[],T=[],H=f.mode;(new Date).getTime();switch(H){case"limitHour":if(d=f.data.date[m[0]],i=f.data.areas[m[1]],f.data.hours[m[2]],d.value!=A[0].value){m[1]=0,m[2]=0;var M=l.default.limitHour.initAreas(d);f.data.areas=M;var Y=l.default.limitHour.initHours(d,f.data.areas[m[1]]);f.data.hours=Y}if(i.value!=A[1].value){m[2]=0;var E=l.default.limitHour.initHours(d,f.data.areas[m[1]]);f.data.hours=E}u=f.data.date[m[0]]||f.data.date[f.data.date.length-1],c=f.data.areas[m[1]]||f.data.areas[f.data.areas.length-1],h=f.data.hours[m[2]]||f.data.hours[f.data.hours.length-1],f.checkArr=[u,c,h],f.resultStr="".concat(u.value+" "+c.label+" "+h.label+"时");break;case"limit":if(d=f.data.date[m[0]],i=f.data.hours[m[1]],d.value!=A[0].value){var _=l.default.limit.initHours(f.startHour,f.endHour,f.minuteStep,f.afterStep,d.value),C=l.default.limit.initMinutes(f.startHour,f.endHour,f.minuteStep,f.afterStep,d.value,i.value);f.data.hours=_,f.data.minutes=C}if(i.value!=A[1].value){var L=l.default.limit.initMinutes(f.startHour,f.endHour,f.minuteStep,f.afterStep,d.value,i.value);f.data.minutes=L}u=f.data.date[m[0]]||f.data.date[f.data.date.length-1],h=f.data.hours[m[1]]||f.data.hours[f.data.hours.length-1],o=f.data.minutes[m[2]]||f.data.minutes[f.data.minutes.length-1],f.checkArr=[u,h,o],f.resultStr="".concat(u.value+" "+h.value+":"+o.value+":00");break;case"range":var $=f.data.fyears[m[0]]||f.data.fyears[f.data.fyears.length-1],P=f.data.fmonths[m[1]]||f.data.fmonths[f.data.fmonths.length-1],x=f.data.fdays[m[2]]||f.data.fdays[f.data.fdays.length-1],O=f.data.tyears[m[4]]||f.data.tyears[f.data.tyears.length-1],F=f.data.tmonths[m[5]]||f.data.tmonths[f.data.tmonths.length-1],j=f.data.tdays[m[6]]||f.data.tdays[f.data.tdays.length-1];$!=A[0]&&(m[4]=0,m[5]=0,m[6]=0,T=l.default.range.initStartDays($,P),D=l.default.range.initEndYears($,f.startYear,f.endYear),w=l.default.range.initEndMonths(P),N=l.default.range.initEndDays($,P,x,O,F),f.data.fdays=T,f.data.tyears=D,f.data.tmonths=w,f.data.tdays=N,O=f.data.tyears[0],A[3]=f.data.tyears[0],F=f.data.tmonths[0],A[4]=f.data.tmonths[0],j=f.data.tdays[0],A[5]=f.data.tdays[0]),P!=A[1]&&(m[4]=0,m[5]=0,m[6]=0,T=l.default.range.initStartDays($,P),D=l.default.range.initEndYears($,f.startYear,f.endYear),w=l.default.range.initEndMonths(P),N=l.default.range.initEndDays($,P,x,O,F),f.data.fdays=T,f.data.tyears=D,f.data.tmonths=w,f.data.tdays=N,O=f.data.tyears[0],A[3]=f.data.tyears[0],F=f.data.tmonths[0],A[4]=f.data.tmonths[0],j=f.data.tdays[0],A[5]=f.data.tdays[0]),x!=A[2]&&(m[4]=0,m[5]=0,m[6]=0,D=l.default.range.initEndYears($,f.startYear,f.endYear),w=l.default.range.initEndMonths(P),N=l.default.range.initEndDays($,P,x,O,F),f.data.tyears=D,f.data.tmonths=w,f.data.tdays=N,O=f.data.tyears[0],A[3]=f.data.tyears[0],F=f.data.tmonths[0],A[4]=f.data.tmonths[0],j=f.data.tdays[0],A[5]=f.data.tdays[0]),O!=A[3]&&(m[5]=0,m[6]=0,w=l.default.range.initToMonths($,P,x,O),N=l.default.range.initEndDays($,P,x,O,F),f.data.tmonths=w,f.data.tdays=N,F=f.data.tmonths[0],A[4]=f.data.tmonths[0],j=f.data.tdays[0],A[5]=f.data.tdays[0]),F!=A[4]&&(m[6]=0,N=l.default.range.initToDays($,P,x,O,F),f.data.tdays=N,j=f.data.tdays[0],A[5]=f.data.tdays[0]),f.checkArr=[$,P,x,O,F,j],f.resultStr="".concat($+"-"+P+"-"+x+"至"+O+"-"+F+"-"+j);break;case"half":g=f.data.years[m[0]]||f.data.years[f.data.years.length-1],y=f.data.months[m[1]]||f.data.months[f.data.months.length-1],b=f.data.days[m[2]]||f.data.days[f.data.days.length-1],r=f.data.areas[m[3]]||f.data.areas[f.data.areas.length-1],g!=A[0]&&(V=l.default.date.initMonths(g,f.disabledAfter),S=l.default.date.initDays(g,y,f.disabledAfter),f.disabledAfter&&(m[1]=m[1]>V.length-1?V.length-1:m[1],m[2]=m[2]>S.length-1?S.length-1:m[2],y=f.data.months[m[1]]||f.data.months[f.data.months.length-1],b=f.data.days[m[2]]||f.data.days[f.data.days.length-1]),f.data.days=S,f.data.months=V),y!=A[1]&&(S=l.default.date.initDays(g,y,f.disabledAfter),m[2]=m[2]>S.length-1?S.length-1:m[2],b=f.data.days[m[2]]||f.data.days[f.data.days.length-1],f.data.days=S),f.checkArr=[g,y,b,r],f.resultStr="".concat(g+"-"+y+"-"+b+r.label);break;case"date":g=f.data.years[m[0]]||f.data.years[f.data.years.length-1],y=f.data.months[m[1]]||f.data.months[f.data.months.length-1],b=f.data.days[m[2]]||f.data.days[f.data.days.length-1],g!=A[0]&&(V=l.default.date.initMonths(g,f.disabledAfter),S=l.default.date.initDays(g,y,f.disabledAfter),f.disabledAfter&&(m[1]=m[1]>V.length-1?V.length-1:m[1],m[2]=m[2]>S.length-1?S.length-1:m[2],y=f.data.months[m[1]]||f.data.months[f.data.months.length-1],b=f.data.days[m[2]]||f.data.days[f.data.days.length-1]),f.data.days=S,f.data.months=V),y!=A[1]&&(S=l.default.date.initDays(g,y,f.disabledAfter),m[2]=m[2]>S.length-1?S.length-1:m[2],b=f.data.days[m[2]]||f.data.days[f.data.days.length-1],f.data.days=S);var R=g+"-"+y+"-"+b;if(f.starttime){var B=f.starttime;new Date(R).getTime()<new Date(B).getTime()&&(g=B.split("-")[0],y=B.split("-")[1],b=B.split("-")[2],m[0]=Number(g)-1970,m[1]=Number(y)-1,m[2]=Number(b)-1)}if(f.endtime){var I=f.endtime;new Date(R).getTime()>new Date(I).getTime()&&(g=I.split("-")[0],y=I.split("-")[1],b=I.split("-")[2],m[0]=Number(g)-1970,m[1]=Number(y)-1,m[2]=Number(b)-1)}f.checkArr=[g,y,b],f.resultStr="".concat(g+"-"+y+"-"+b);break;case"yearMonth":g=f.data.years[m[0]]||f.data.years[f.data.years.length-1],y=f.data.months[m[1]]||f.data.months[f.data.months.length-1],g!=A[0]&&(f.disabledAfter&&(m[1]=m[1]>V.length-1?V.length-1:m[1],y=f.data.months[m[1]]||f.data.months[f.data.months.length-1]),V=l.default.date.initMonths(g,f.disabledAfter),f.data.months=V),f.checkArr=[g,y],f.resultStr="".concat(g+"-"+y);break;case"dateTime":g=f.data.years[m[0]]||f.data.years[f.data.years.length-1],y=f.data.months[m[1]]||f.data.months[f.data.months.length-1],b=f.data.days[m[2]]||f.data.days[f.data.days.length-1],k=f.data.hours[m[3]]||f.data.hours[f.data.hours.length-1],v=f.data.minutes[m[4]]||f.data.minutes[f.data.minutes.length-1],p=f.data.seconds[m[5]]||f.data.seconds[f.data.seconds.length-1],g!=A[0]&&(m[2]=0,S=l.default.date.initDays(g,y),b=f.data.days[m[2]]||f.data.days[f.data.days.length-1],f.data.days=S),y!=A[1]&&(m[2]=0,S=l.default.date.initDays(g,y),b=f.data.days[m[2]]||f.data.days[f.data.days.length-1],f.data.days=S);R=g+"-"+y+"-"+b;if(f.starttime){var J=f.starttime;new Date(R).getTime()<new Date(J).getTime()&&(g=J.split("-")[0],y=J.split("-")[1],b=J.split("-")[2],m[0]=Number(g)-1970,m[1]=Number(y)-1,m[2]=Number(b)-1)}if(f.endtime){var U=f.endtime;new Date(R).getTime()>new Date(U).getTime()&&(g=U.split("-")[0],y=U.split("-")[1],b=U.split("-")[2],m[0]=Number(g)-1970,m[1]=Number(y)-1,m[2]=Number(b)-1)}f.checkArr=[g,y,b,k,v,p],f.resultStr="".concat(g+"-"+y+"-"+b+" "+k+":"+v+":"+p);break;case"time":k=f.data.hours[m[0]]||f.data.hours[f.data.hours.length-1],v=f.data.minutes[m[1]]||f.data.minutes[f.data.minutes.length-1],p=f.data.seconds[m[2]]||f.data.seconds[f.data.seconds.length-1],f.checkArr=[k,v,p],f.resultStr="".concat(k+":"+v+":"+p);break;case"linkage":var q,z,G,K=this.linkList;q=f.data[0][m[0]]||f.data[0][0],z=f.data[1][m[1]]||f.data[1][0],3==this.level?(G=f.data[2][m[2]]||f.data[2][0],q.label!=A[0]&&(m[1]=0,m[2]=0,f.data[1]=K[m[0]].children,f.data[2]=K[m[0]].children[m[1]].children,z=f.data[1][m[1]]||f.data[1][0],G=f.data[2][m[2]]||f.data[2][0]),z.label!=A[1]&&(m[2]=0,f.data[2]=K[m[0]].children[m[1]].children,G=f.data[2][m[2]]||f.data[2][0]),f.checkArr=[q.label,z.label,G.label],f.checkValue=[f.data[0][m[0]]?f.data[0][m[0]].value:f.data[0][0].value,f.data[1][m[1]]?f.data[1][m[1]].value:f.data[1][0].value,f.data[2][m[2]]?f.data[2][m[2]].value:f.data[2][0].value],f.resultStr=q.label+z.label+G.label):(q.label!=A[0]&&(f.data[1]=K[m[0]].children,m[1]=0,z=f.data[1][m[1]]||f.data[1][0]),f.checkArr=[q.label,z.label],f.checkValue=[f.data[0][m[0]]?f.data[0][m[0]].value:f.data[0][0].value,f.data[1][m[1]]?f.data[1][m[1]].value:f.data[1][0].value],f.resultStr=q.label+z.label);break;case"region":t=f.data.provinces[m[0]]||f.data.provinces[0],e=f.data.citys[m[1]]||f.data.citys[0],f.hideArea||(r=f.data.areas[m[2]]||f.data.areas[0]),t.label!=A[0]&&(f.data.citys=n.default[m[0]]||n.default[0],f.hideArea||(f.data.areas=s.default[m[0]][0]||s.default[0][0]),m[1]=0,m[2]=0,e=f.data.citys[m[1]]||f.data.citys[0],f.hideArea||(r=f.data.areas[m[2]]||f.data.areas[0])),e.label==A[1]||f.hideArea||(f.data.areas=s.default[m[0]][m[1]]||s.default[0][0],m[2]=0,r=f.data.areas[m[2]]||f.data.areas[0]),f.hideArea?(f.checkArr=[t.label,e.label],f.checkValue=[f.data.provinces[m[0]]?f.data.provinces[m[0]].value:f.data.provinces[0].value,f.data.citys[m[1]]?f.data.citys[m[1]].value:f.data.citys[0].value],f.resultStr=t.label+e.label):(f.checkArr=[t.label,e.label,r.label],f.checkValue=[f.data.provinces[m[0]]?f.data.provinces[m[0]].value:f.data.provinces[0].value,f.data.citys[m[1]]?f.data.citys[m[1]].value:f.data.citys[0].value,f.data.areas[m[2]]?f.data.areas[m[2]].value:f.data.areas[0].value],f.resultStr=t.label+e.label+r.label);break;case"selector":f.checkArr=f.data[m[0]]||f.data[f.data.length-1],f.resultStr=f.data[m[0]]?f.data[m[0]].label:f.data[f.data.length-1].label;break}f.$nextTick((function(){f.pickVal=m}))},initData:function(){var a,t,e,d,u,c,h,o,f,m,g,y,b=this,k=this,v={},p=k.mode,A=[];switch(p){case"linkage":var S;S=k.value?k.getLinkageVal(k.value,!0):k.getLinkageVal(k.defaultVal),A=S.dval,v=S.data,k.checkArr=S.checkArr,k.checkValue=S.checkValue,k.resultStr=S.resultStr;break;case"region":A=k.areaCode?k.getRegionVal(k.areaCode,!0):k.getRegionVal(k.defaultVal),v=k.hideArea?{provinces:r.default,citys:n.default[A[0]]}:{provinces:r.default,citys:n.default[A[0]],areas:s.default[A[0]][A[1]]};break;case"selector":var V=0;v=i(k.selectList),k.selectList.map((function(a,t){a.label==b.defaultVal&&(V=t)})),A=[V];break;case"limit":v=l.default.limit.init(k.dayStep,k.startHour,k.endHour,k.minuteStep,k.afterStep,this.defaultVal),A=v.defaultVal||k.defaultVal;break;case"limitHour":v=l.default.limitHour.init(k.dayStep,this.defaultVal),A=v.defaultVal||k.defaultVal;break;case"range":v=l.default.range.init(k.startYear,k.endYear,k.useCurrent(),k.current),A=v.defaultVal||k.defaultVal;break;default:v=l.default.date.init(k.startYear,k.endYear,k.mode,k.step,k.useCurrent(),k.current,k.disabledAfter),A=v.defaultVal||k.defaultVal;break}switch(k.data=v,p){case"limitHour":m=v.date[A[0]]||v.date[v.date.length-1],g=v.areas[A[2]]||v.areas[v.areas.length-1],y=v.hours[A[1]]||v.hours[v.hours.length-1],k.checkArr=[m,g,y],k.resultStr="".concat(m.value+" "+g.label+" "+y.label+"时");break;case"limit":m=v.date[A[0]]||v.date[v.date.length-1],g=v.hours[A[1]]||v.hours[v.hours.length-1],y=v.minutes[A[2]]||v.minutes[v.minutes.length-1],k.checkArr=[m,g,y],k.resultStr="".concat(m.value+" "+g.value+":"+y.value+":00");break;case"range":var D=v.fyears[A[0]]||v.fyears[v.fyears.length-1],w=v.fmonths[A[1]]||v.fmonths[v.fmonths.length-1],N=v.fdays[A[2]]||v.fdays[v.fdays.length-1],T=v.tyears[A[4]]||v.tyears[v.tyears.length-1],H=v.tmonths[A[5]]||v.tmonths[v.tmonths.length-1],M=v.tdays[A[6]]||v.tdays[v.tdays.length-1];k.checkArr=[D,w,N,T,H,M],k.resultStr="".concat(D+"-"+w+"-"+N+"至"+T+"-"+H+"-"+M);break;case"half":a=v.years[A[0]]||v.years[v.years.length-1],t=v.months[A[1]]||v.months[v.months.length-1],e=v.days[A[2]]||v.days[v.days.length-1],f=v.areas[A[3]]||v.areas[v.areas.length-1],k.checkArr=[a,t,e,f],k.resultStr="".concat(a+"-"+t+"-"+e+" "+f.label);break;case"date":a=v.years[A[0]]||v.years[v.years.length-1],t=v.months[A[1]]||v.months[v.months.length-1],e=v.days[A[2]]||v.days[v.days.length-1],k.checkArr=[a,t,e],k.resultStr="".concat(a+"-"+t+"-"+e);break;case"yearMonth":a=v.years[A[0]]||v.years[v.years.length-1],t=v.months[A[1]]||v.months[v.months.length-1],k.checkArr=[a,t],k.resultStr="".concat(a+"-"+t);break;case"dateTime":a=v.years[A[0]]||v.years[v.years.length-1],t=v.months[A[1]]||v.months[v.months.length-1],e=v.days[A[2]]||v.days[v.days.length-1],d=v.hours[A[3]]||v.hours[v.hours.length-1],u=v.minutes[A[4]]||v.minutes[v.minutes.length-1],c=v.seconds[A[5]]||v.seconds[v.seconds.length-1],k.resultStr="".concat(a+"-"+t+"-"+e+" "+d+":"+u+":"+c),k.checkArr=[a,t,e,d,u];break;case"time":d=v.hours[A[0]]||v.hours[v.hours.length-1],u=v.minutes[A[1]]||v.minutes[v.minutes.length-1],c=v.seconds[A[2]]||v.seconds[v.seconds.length-1],k.checkArr=[d,u,c],k.resultStr="".concat(d+":"+u+":"+c);break;case"region":h=v.provinces[A[0]],o=v.citys[A[1]],k.hideArea?(k.checkArr=[h.label,o.label],k.checkValue=[h.value,o.value],k.resultStr=h.label+o.label):(f=v.areas[A[2]],k.checkArr=[h.label,o.label,f.label],k.checkValue=[h.value,o.value,f.value],k.resultStr=h.label+o.label+f.label);break;case"selector":k.checkArr=v[A[0]]||v[v.length-1],k.resultStr=v[A[0]].label||v[v.length-1].label;break}k.$nextTick((function(){k.pickVal=i(A)}))}},mounted:function(){this.initData()}}}).call(this,e("255a")["default"])},b5fd:function(a,t,e){},cb6fa:function(a,t,e){"use strict";var r;e.d(t,"b",(function(){return n})),e.d(t,"c",(function(){return s})),e.d(t,"a",(function(){return r}));var n=function(){var a=this,t=a.$createElement;a._self._c;a._isMounted||(a.e0=function(t){return t.stopPropagation(),t.preventDefault(),a.__HOLDER__(t)},a.e1=function(t){return t.stopPropagation(),t.preventDefault(),a.__HOLDER__(t)})},s=[]},e2b1:function(a,t,e){"use strict";e.r(t);var r=e("cb6fa"),n=e("f105");for(var s in n)["default"].indexOf(s)<0&&function(a){e.d(t,a,(function(){return n[a]}))}(s);e("273c");var l,d=e("7702"),i=Object(d["a"])(n["default"],r["b"],r["c"],!1,null,null,null,!1,r["a"],l);t["default"]=i.exports},f105:function(a,t,e){"use strict";e.r(t);var r=e("a9f5"),n=e.n(r);for(var s in r)["default"].indexOf(s)<0&&function(a){e.d(t,a,(function(){return r[a]}))}(s);t["default"]=n.a}}]);
-;(global["webpackJsonp"] = global["webpackJsonp"] || []).push([
-    'components/w-picker/w-picker-create-component',
-    {
-        'components/w-picker/w-picker-create-component':(function(module, exports, __webpack_require__){
-            __webpack_require__('255a')['createComponent'](__webpack_require__("e2b1"))
-        })
-    },
-    [['components/w-picker/w-picker-create-component']]
-]);
+const forMatNum=(num)=>{
+	return num<10?'0'+num:num+'';
+}
+const initPicker={
+	//日期
+	date:{
+		init(start,end,mode="date",step,value,flag,disabled){
+			let aToday=new Date();
+			let tYear,tMonth,tDay,tHours,tMinutes,tSeconds,defaultVal=[];
+			let initstartDate=new Date(start.toString());
+			let endDate=new Date(end.toString());
+			if(start>end){
+				initstartDate=new Date(end.toString());
+				endDate=new Date(start.toString());
+			};
+			let startYear=initstartDate.getFullYear();
+			let startMonth=initstartDate.getMonth()+1;
+			let endYear=endDate.getFullYear();
+			let years=[],months=[],days=[],hours=[],minutes=[],seconds=[],areas=[],returnArr=[],dvalDate=[];
+			switch(mode){
+				case "half":
+					dvalDate=flag?[...value.split(" ")[0].split("-"),...value.split(" ")[1].split(":")]:[...value.split(" ")[0].split("-"),value.split(" ")[1]];
+					break;
+				case "date":
+				case "yearMonth":
+					dvalDate=value.split("-");
+					break;
+				case "dateTime":
+					dvalDate=[...value.split(" ")[0].split("-"),...value.split(" ")[1].split(":")];
+					break;
+				case "time":
+					dvalDate=value.split(":");
+					break;
+			}
+			let curMonth=flag?dvalDate[1]*1:(dvalDate[1]+1);
+			let dYear=aToday.getFullYear();
+			let dMonth=aToday.getMonth()+1;
+			let dDate=aToday.getDate();
+			let totalDays=new Date(startYear,curMonth,0).getDate();
+			let dvalObj={};
+			switch(mode){
+				case "half":
+				case "date":
+				case "yearMonth":
+					let curYear=dvalDate[0];
+					let curMonth=dvalDate[1];
+					if(disabled){
+						for(let s=startYear;s<=dYear;s++){
+							years.push(s+'');
+						};
+						if(curYear==dYear){
+							for(let m=1;m<=dMonth;m++){
+								months.push(forMatNum(m));
+							};
+						}else{
+							for(let m=1;m<=12;m++){
+								months.push(forMatNum(m));
+							};
+						}
+						if(curMonth==dMonth){
+							for(let d=1;d<=dDate;d++){
+								days.push(forMatNum(d));
+							}
+						}else{
+							for(let d=1;d<=totalDays;d++){
+								days.push(forMatNum(d));
+							}
+						}
+						
+					}else{
+						for(let s=startYear;s<=endYear;s++){
+							years.push(s+'');
+						};
+						for(let m=1;m<=12;m++){
+							months.push(forMatNum(m));
+						};
+						for(let d=1;d<=totalDays;d++){
+							days.push(forMatNum(d));
+						}
+					};
+					break;
+				default:
+					for(let s=startYear;s<=endYear;s++){
+						years.push(s+'');
+					};
+					for(let m=1;m<=12;m++){
+						months.push(forMatNum(m));
+					};
+					for(let d=1;d<=totalDays;d++){
+						days.push(forMatNum(d));
+					}
+					break;
+			}
+			for(let h=0;h<24;h++){
+				hours.push(forMatNum(h));
+			}
+			for(let m=0;m<60;m+=step*1){
+				minutes.push(forMatNum(m));
+			}
+			for(let s=0;s<60;s++){
+				seconds.push(forMatNum(s));
+			}
+			if(flag){
+				returnArr=[
+					years.indexOf(dvalDate[0]),
+					months.indexOf(dvalDate[1]),
+					days.indexOf(dvalDate[2]),
+					hours.indexOf(dvalDate[3]),
+					minutes.indexOf(dvalDate[4])==-1?0:minutes.indexOf(dvalDate[4]),
+					seconds.indexOf(dvalDate[5])
+				]
+			}
+			switch(mode){
+				case "date":
+					if(flag){
+						defaultVal=[returnArr[0],returnArr[1],returnArr[2]];
+						return {years,months,days,defaultVal}
+					}else{
+						defaultVal=[
+							years.indexOf(dvalDate[0])==-1?0:years.indexOf(dvalDate[0]),
+							months.indexOf(dvalDate[1])==-1?0:months.indexOf(dvalDate[1]),
+							days.indexOf(dvalDate[2])==-1?0:days.indexOf(dvalDate[2])
+						];
+						return {years,months,days,defaultVal}
+					}
+					break;
+				case "half":
+					areas=[{
+						label:"上午",
+						value:0
+					},{
+						label:"下午",
+						value:1
+					}];
+					if(flag){
+						defaultVal=[returnArr[0],returnArr[1],returnArr[2],returnArr[3]];
+						return {years,months,days,areas,defaultVal}
+					}else{
+						let idx=0;
+						areas.map((v,k)=>{
+							if(v.label==dvalDate[3]){
+								idx=v.value;
+							}
+						})
+						defaultVal=[
+							years.indexOf(dvalDate[0])==-1?0:years.indexOf(dvalDate[0]),
+							months.indexOf(dvalDate[1])==-1?0:months.indexOf(dvalDate[1]),
+							days.indexOf(dvalDate[2])==-1?0:days.indexOf(dvalDate[2]),
+							idx
+						];
+						return {years,months,days,areas,defaultVal}
+					}
+					break;	
+				case "yearMonth":
+					if(flag){
+						defaultVal=[returnArr[0],returnArr[1]];
+						return {years,months,defaultVal}
+					}else{
+						defaultVal=[
+							years.indexOf(dvalDate[0])==-1?0:years.indexOf(dvalDate[0]),
+							months.indexOf(dvalDate[1])==-1?0:months.indexOf(dvalDate[1])
+						];
+						return {years,months,defaultVal}
+					}
+					break;
+				case "dateTime":
+					if(flag){
+						defaultVal=returnArr;
+					}else{
+						defaultVal=[
+							years.indexOf(dvalDate[0])==-1?0:years.indexOf(dvalDate[0]),
+							months.indexOf(dvalDate[1])==-1?0:months.indexOf(dvalDate[1]),
+							days.indexOf(dvalDate[2])==-1?0:days.indexOf(dvalDate[2]),
+							hours.indexOf(dvalDate[3])==-1?0:hours.indexOf(dvalDate[3]),
+							minutes.indexOf(dvalDate[4])==-1?0:minutes.indexOf(dvalDate[4]),
+							seconds.indexOf(dvalDate[5])==-1?0:seconds.indexOf(dvalDate[5])
+						];
+					}
+					return {years,months,days,hours,minutes,seconds,defaultVal}
+					break;
+				case "time":
+					if(flag){
+						defaultVal=[returnArr[3],returnArr[4],returnArr[5]];
+					}else{
+						defaultVal=[
+							hours.indexOf(dvalDate[0])==-1?0:hours.indexOf(dvalDate[0]),
+							minutes.indexOf(dvalDate[1])==-1?0:minutes.indexOf(dvalDate[1]),
+							seconds.indexOf(dvalDate[2])==-1?0:seconds.indexOf(dvalDate[2])
+						];
+					}
+					return {hours,minutes,seconds,defaultVal}
+					break;			
+			}
+		},
+		initMonths:(year,disabled)=>{
+			let aDate=new Date();
+			let dYear=aDate.getFullYear();
+			let dMonth=aDate.getMonth()+1;
+			let dDate=aDate.getDate();
+			let flag=dYear==year?true:false;
+			let months=[];
+			if(disabled){
+				if(flag){
+					for(let m=1;m<=dMonth;m++){
+						months.push(forMatNum(m));
+					};	
+				}else{
+					for(let m=1;m<=12;m++){
+						months.push(forMatNum(m));
+					};	
+				}
+			}else{
+				for(let m=1;m<=12;m++){
+					months.push(forMatNum(m));
+				};
+			};
+			return months;
+		},
+		initDays:(year,month,disabled)=>{
+			let aDate=new Date();
+			let dYear=aDate.getFullYear();
+			let dMonth=aDate.getMonth()+1;
+			let dDate=aDate.getDate();
+			let flag=(dYear==year&&dMonth==month)?true:false;
+			let totalDays=new Date(year,month,0).getDate();
+			let dates=[];
+			if(flag&&disabled){
+				for(let d=1;d<=dDate;d++){
+					dates.push(forMatNum(d));
+				};			
+			}else{
+				for(let d=1;d<=totalDays;d++){
+					dates.push(forMatNum(d));
+				};
+			};
+			return dates;
+		},
+	},
+	//短期日期上下午
+	limitHour:{
+		init(dayStep=7,dVal){
+			let startDate=new Date();
+			let date=[],areas=[],hours=[];
+			let hour=new Date().getHours();
+			let weeks=["周日","周一","周二","周三","周四","周五","周六"];
+			let arrs=[];
+			let defaultVal=[];
+			let d=0,a=0,h=0;
+			for(let i=0;i<dayStep;i++){
+				let year,month,day,weekday;
+				year=startDate.getFullYear();
+				month=forMatNum(startDate.getMonth()+1);
+				day=forMatNum(startDate.getDate());
+				weekday=weeks[startDate.getDay()];
+				let label="";
+				switch(i){
+					case 0:
+						label="今天";
+						break;
+					case 1:
+						label="明天"
+						break;
+					case 2:
+						label="后天"
+						break;
+					default:
+						label=month+"月"+day+"日"+" "+weekday;
+						break;
+				}
+				date.push({
+					label:label,
+					value:year+"-"+month+"-"+day,
+					today:i==0?true:false
+				})
+				startDate.setDate(startDate.getDate()+1);
+			}
+			if(hour>12){
+				areas=[{
+					label:"下午",
+					value:1
+				}]
+			}else{
+				areas=[{
+					label:"上午",
+					value:0
+				},{
+					label:"下午",
+					value:1
+				}]
+			};
+			for(let k=hour>12?hour-12:hour;k<=12;k++){
+				hours.push({
+					label:forMatNum(k),
+					value:forMatNum(hour>12?k+12:k)
+				})
+			};
+			date.map((v,k)=>{
+				if(v.label==dVal[0]){
+					d=k
+				}
+			})
+			if(d!=0){
+				areas=this.initAreas(date[d]);
+				hours=this.initHours(date[d],areas[a]);
+			}
+			areas.map((v,k)=>{
+				if(v.label==dVal[1]){
+					a=k
+				}
+			})
+			hours.map((v,k)=>{
+				if(v.label==dVal[2]){
+					h=k
+				}
+			});
+			defaultVal=[d,a,h]
+			return {date,areas,hours,defaultVal};
+		},
+		initAreas(date){
+			let areas=[];
+			let hour=new Date().getHours();
+			if(date.today){
+				if(hour>12){
+					areas=[{
+						label:"下午",
+						value:1
+					}]
+				}else{
+					areas=[{
+						label:"上午",
+						value:0
+					},{
+						label:"下午",
+						value:1
+					}]
+				};
+			}else{
+				areas=[{
+					label:"上午",
+					value:0
+				},{
+					label:"下午",
+					value:1
+				}]
+			}
+			return areas;
+		},
+		initHours(dateCol,hourCol){
+			let hours=[];
+			let hour=new Date().getHours();
+			if(dateCol.today){
+				if(hourCol.value==1&&hour<=12){
+					for(let k=1;k<=12;k++){
+						hours.push({
+							label:forMatNum(k),
+							value:forMatNum(hourCol.value==1?k+12:k)
+						})
+					};
+				}else{
+					for(let k=hour>12?hour-12:hour;k<=12;k++){
+						hours.push({
+							label:forMatNum(k),
+							value:forMatNum(hourCol.value==1?k+12:k)
+						})
+					};
+				}
+				
+			}else{
+				for(let k=1;k<=12;k++){
+					hours.push({
+						label:forMatNum(k),
+						value:forMatNum(hourCol.value==1?k+12:k)
+					})
+				};
+			};
+			return hours
+		}
+	},
+	//短期日期时间初始化
+	limit:{
+		init(dayStep=7,startHour=8,endHour=20,minuteStep=1,afterStep=30,dVal){
+			let startDate=new Date();
+			let bsDate=new Date(new Date().getTime()+afterStep*60*1000);
+			let date=[],hours=[],minutes=[];
+			let hour=bsDate.getHours();
+			let minute=Math.floor(bsDate.getMinutes()/minuteStep)*minuteStep;
+			let weeks=["周日","周一","周二","周三","周四","周五","周六"];
+			let d=0,h=0,m=0;
+			let defaultVal=[];
+			for(let i=0;i<dayStep;i++){
+				let year,month,day,weekday;
+				year=startDate.getFullYear();
+				month=forMatNum(startDate.getMonth()+1);
+				day=forMatNum(startDate.getDate());
+				weekday=weeks[startDate.getDay()];
+				let label="";
+				switch(i){
+					case 0:
+						label="今天";
+						break;
+					case 1:
+						label="明天"
+						break;
+					case 2:
+						label="后天"
+						break;
+					default:
+						label=month+"月"+day+"日"+" "+weekday;
+						break;
+				}
+				date.push({
+					label:label,
+					value:year+"-"+month+"-"+day,
+					flag:i==0?true:false
+				})
+				startDate.setDate(startDate.getDate()+1);
+			}
+			if(hour<startHour){
+				hour=startHour;
+			};
+			if(hour>endHour){
+				hour=endHour;
+			};
+			for(let k=hour*1;k<=endHour*1;k++){
+				hours.push({
+					label:forMatNum(k),
+					value:forMatNum(k),
+					flag:k==hour?true:false
+				})
+			};
+			for(let j=minute;j<60;j+=minuteStep*1){
+				minutes.push({
+					label:forMatNum(j),
+					value:forMatNum(j)
+				});
+			}
+			date.map((v,k)=>{
+				if(v.label==dVal[0]){
+					d=k
+				}
+			})
+			if(d!=0){
+				hours=this.initHours(startHour=8,endHour=20,minuteStep=1,afterStep=30,date[d].value);
+			}
+			hours.map((v,k)=>{
+				if(v.label==dVal[1]){
+					h=k
+				}
+			})
+			minutes.map((v,k)=>{
+				if(v.label==dVal[2]){
+					m=k
+				}
+			})
+			defaultVal=[d,h,m];
+			return {date,hours,minutes,defaultVal};
+		},
+		initHours(startHour=8,endHour=20,minuteStep=1,afterStep=30,date){
+			let hours=[];
+			let arr=date.split("-");
+			let aDate=new Date();
+			let dYear=aDate.getFullYear();
+			let dMonth=aDate.getMonth()+1;
+			let dDate=aDate.getDate();
+			let bsDate=new Date(new Date().getTime()+afterStep*60*1000);
+			let hour=bsDate.getHours();
+			let flag=(dYear==arr[0]&&dMonth==arr[1]&&dDate==arr[2])?true:false;
+			if(hour>endHour){
+				hour=endHour;
+			};
+			if(flag){
+				for(let k=hour*1;k<=endHour*1;k++){
+					hours.push({
+						label:forMatNum(k),
+						value:forMatNum(k),
+						flag:k==hour?true:false
+					})
+				};			
+			}else{
+				for(let k=startHour*1;k<=endHour*1;k++){
+					hours.push({
+						label:forMatNum(k),
+						value:forMatNum(k),
+						flag:false
+					})
+				}			
+			};
+			return hours;
+		},
+		initMinutes(startHour=8,endHour=20,minuteStep=1,afterStep=30,date,hour){
+			let minutes=[];
+			let bsDate=new Date(new Date().getTime()+afterStep*60*1000);
+			let arr=date.split("-");
+			let aDate=new Date();
+			let dYear=aDate.getFullYear();
+			let dMonth=aDate.getMonth()+1;
+			let dDate=aDate.getDate();
+			let dHour=bsDate.getHours();;
+			let minute=Math.floor(bsDate.getMinutes()/minuteStep)*minuteStep;
+			let flag=(dYear==arr[0]&&dMonth==arr[1]&&dDate==arr[2])?true:false;
+			if(flag){
+				if(hour==dHour){
+					for(let j=minute;j<60;j+=minuteStep*1){
+						minutes.push({
+							label:forMatNum(j),
+							value:forMatNum(j)
+						});
+					}	
+				}else{
+					for(let j=0;j<60;j+=minuteStep*1){
+						minutes.push({
+							label:forMatNum(j),
+							value:forMatNum(j)
+						})
+					}
+				}
+						
+			}else{
+				for(let j=0;j<60;j+=minuteStep*1){
+					minutes.push({
+						label:forMatNum(j),
+						value:forMatNum(j)
+					})
+				}			
+			}
+			return minutes;
+		}
+	},
+	//选择区间初始化
+	range:{
+		init(start,end,value,flag){
+			let aToday=new Date();
+			let tYear,tMonth,tDay,tHours,tMinutes,tSeconds,defaultVal=[];
+			let initstartDate=new Date(start.toString());
+			let endDate=new Date(end.toString());
+			if(start>end){
+				initstartDate=new Date(end.toString());
+				endDate=new Date(start.toString());
+			};
+			let startYear=initstartDate.getFullYear();
+			let startMonth=initstartDate.getMonth()+1;
+			let endYear=endDate.getFullYear();
+			let fyears=[],fmonths=[],fdays=[],tyears=[],tmonths=[],tdays=[],returnArr=[],startDVal=[],endDVal=[];
+			startDVal=value[0].split("-");
+			endDVal=value[1].split("-");
+			let curMonth=flag?startDVal[1]*1:(startDVal[1]+1);
+			let totalDays=new Date(startYear,curMonth,0).getDate();
+			for(let s=startYear;s<=endYear;s++){
+				fyears.push(s+'');
+			};
+			for(let m=1;m<=12;m++){
+				fmonths.push(forMatNum(m));
+			};
+			for(let d=1;d<=totalDays;d++){
+				fdays.push(forMatNum(d));
+			};
+			for(let s=startDVal[0];s<=endYear;s++){
+				tyears.push(s+'');
+			};
+			for(let m=startDVal[1];m<=12;m++){
+				tmonths.push(forMatNum(m));
+			};
+			for(let d=startDVal[2];d<=totalDays;d++){
+				tdays.push(forMatNum(d));
+			};
+			defaultVal=[
+				fyears.indexOf(startDVal[0])==-1?0:fyears.indexOf(startDVal[0]),
+				fmonths.indexOf(startDVal[1])==-1?0:fmonths.indexOf(startDVal[1]),
+				fdays.indexOf(startDVal[2])==-1?0:fdays.indexOf(startDVal[2]),
+				0,
+				tyears.indexOf(endDVal[0])==-1?0:tyears.indexOf(endDVal[0]),
+				tmonths.indexOf(endDVal[1])==-1?0:tmonths.indexOf(endDVal[1]),
+				tdays.indexOf(endDVal[2])==-1?0:tdays.indexOf(endDVal[2])
+			];
+			return {
+				fyears,
+				fmonths,
+				fdays,
+				tyears,
+				tmonths,
+				tdays,
+				defaultVal
+			}
+		},
+		initStartDays(year,month){
+			let totalDays=new Date(year,month,0).getDate();
+			let dates=[];
+			for(let d=1;d<=totalDays;d++){
+				dates.push(forMatNum(d));
+			};
+			return dates;
+		},
+		initEndYears(curYear,startYear,endYear){
+			let years=[];
+			for(let y=curYear;y<=endYear;y++){
+				years.push(forMatNum(y));
+			};
+			return years;
+		},
+		initEndMonths(curMonth){
+			let months=[];
+			for(let m=curMonth*1;m<=12;m++){
+				months.push(forMatNum(m));
+			};
+			return months;
+		},
+		initEndDays(curYear,curMonth,curDate,tYear,tMonth){
+			let totalDays=new Date(curYear,curMonth,0).getDate();
+			let days=[];
+			for(let d=curDate*1;d<=totalDays;d++){
+				days.push(forMatNum(d));
+			};
+			return days;
+		},
+		initToMonths(curYear,curMonth,curDate,tYear){
+			let aDate=new Date(curYear,curMonth,curDate).getTime();
+			let bDate=new Date(tYear,curMonth,curDate).getTime();
+			let months=[];
+			if(bDate-aDate>0){
+				console.log(1)
+				for(let m=1;m<=12;m++){
+					months.push(forMatNum(m));
+				};
+			}else{
+				for(let m=curMonth*1;m<=12;m++){
+					months.push(forMatNum(m));
+				};
+			}
+			return months;
+		},
+		initToDays(curYear,curMonth,curDate,tYear,tMonth){
+			let aDate=new Date(curYear,curMonth,curDate).getTime();
+			let bDate=new Date(tYear,tMonth,curDate).getTime();
+			let totalDays=new Date(tYear,tMonth,0).getDate();
+			let days=[];
+			if(bDate-aDate>0){
+				for(let d=1;d<=totalDays;d++){
+					days.push(forMatNum(d));
+				};
+			}else{
+				for(let d=curDate*1;d<=totalDays;d++){
+					days.push(forMatNum(d));
+				};
+			}
+			return days;
+		}
+	}
+}
+
+export default initPicker
